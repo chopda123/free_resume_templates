@@ -16,10 +16,10 @@ import Head from 'next/head';
 // Add viewport meta tag to Head component
 const HeadContent = () => (
   <Head>
-    <title>ResumeCraft | Professional ATS-Friendly Resume Templates</title>
+    <title>FreeResume | Professional ATS-Friendly Resume Templates</title>
     <meta name="description" content="Create your perfect resume in minutes with our professional, ATS-friendly templates. Customize instantly with our Canva-powered editor." />
     <meta name="keywords" content="resume, cv, templates, ATS-friendly, job application, career" />
-    <meta property="og:title" content="ResumeCraft | Professional Resume Templates" />
+    <meta property="og:title" content="Freeresume | Professional Resume Templates" />
     <meta property="og:description" content="Create your perfect resume in minutes with our professional, ATS-friendly templates." />
     <meta property="og:type" content="website" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -724,7 +724,7 @@ export default function Home() {
           </div>
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-xs md:text-sm">
-            <p>© {new Date().getFullYear()} ResumeCraft. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} FreeResume. All rights reserved.</p>
           </div>
         </div>
       </footer>
