@@ -1,3 +1,5 @@
+
+
 "use client";
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -26,7 +28,7 @@ export default function PreviewModal({ template, onClose }) {
     <>
       {/* Main Preview Modal */}
       <motion.div 
-        className="fixed inset-0 bg-black/90 backdrop-blur-lg z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -39,14 +41,14 @@ export default function PreviewModal({ template, onClose }) {
           exit={{ scale: 0.9, y: 20 }}
           onClick={e => e.stopPropagation()}
         >
-          <div className="p-6 border-b border-premium-cream flex justify-between items-center">
+          <div className="p-6 border-b border-gray-200 flex justify-between items-center">
             <div>
-              <h2 className="text-3xl font-serif font-bold text-premium-navy">{template.title}</h2>
+              <h2 className="text-3xl font-serif font-bold text-gray-800">{template.title}</h2>
               <div className="flex items-center mt-2">
-                <span className="bg-premium-gold/10 text-premium-gold px-3 py-1 rounded-full text-sm font-medium mr-4">
+                <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-sm font-medium mr-4">
                   {template.category}
                 </span>
-                <div className="flex text-premium-gold">
+                <div className="flex text-amber-400">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -57,7 +59,7 @@ export default function PreviewModal({ template, onClose }) {
             </div>
             <button 
               onClick={onClose}
-              className="text-premium-charcoal hover:text-premium-navy p-2 rounded-full hover:bg-premium-cream"
+              className="text-gray-600 hover:text-gray-800 p-2 rounded-full hover:bg-gray-100"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -68,7 +70,7 @@ export default function PreviewModal({ template, onClose }) {
           <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-10 p-8 overflow-auto">
             {/* Image Section - Larger height */}
             <div 
-              className="bg-premium-cream rounded-2xl p-4 flex items-center justify-center cursor-zoom-in"
+              className="bg-gray-100 rounded-2xl p-4 flex items-center justify-center cursor-zoom-in"
               onClick={() => setIsFullScreen(true)}
               title="Click to view full screen"
             >
@@ -84,8 +86,8 @@ export default function PreviewModal({ template, onClose }) {
                   />
                 </div>
               ) : (
-                <div className="h-64 bg-premium-cream flex items-center justify-center rounded-2xl w-full">
-                  <p className="text-premium-charcoal/50">No preview available</p>
+                <div className="h-64 bg-gray-100 flex items-center justify-center rounded-2xl w-full">
+                  <p className="text-gray-500/50">No preview available</p>
                 </div>
               )}
             </div>
@@ -93,38 +95,38 @@ export default function PreviewModal({ template, onClose }) {
             {/* Text & Features Section */}
             <div className="flex flex-col">
               <div className="mb-8">
-                <h3 className="text-xl font-serif font-bold text-premium-navy mb-4">Template Details</h3>
-                <p className="text-premium-charcoal">
+                <h3 className="text-xl font-serif font-bold text-gray-800 mb-4">Template Details</h3>
+                <p className="text-gray-600">
                   {template.description || "This premium resume template is professionally designed to showcase your skills and experience in the best possible light. With clean typography, balanced layouts, and strategic use of white space, it creates a powerful first impression that gets you noticed."}
                 </p>
               </div>
               
               <div className="mb-8">
-                <h3 className="text-xl font-serif font-bold text-premium-navy mb-4">Key Features</h3>
+                <h3 className="text-xl font-serif font-bold text-gray-800 mb-4">Key Features</h3>
                 <ul className="space-y-3">
                   {features.map((feature, index) => (
                     <li key={index} className="flex items-start">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-premium-gold mr-3 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-500 mr-3 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                       </svg>
-                      <span className="text-premium-charcoal">{feature}</span>
+                      <span className="text-gray-600">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               
-              <div className="mt-auto pt-8 border-t border-premium-cream">
+              <div className="mt-auto pt-8 border-t border-gray-200">
                 <a 
                   href={template.canvaLink || "#"} 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-gradient-to-r from-premium-gold to-premium-gold/90 hover:from-premium-gold/90 hover:to-premium-gold text-premium-navy text-center py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-xl block transition-all"
+                  className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-center py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-xl block transition-all"
                 >
                   Edit This Template in Canva
                 </a>
                 <button
                   onClick={onClose}
-                  className="w-full mt-4 text-premium-charcoal hover:text-premium-navy font-medium py-3"
+                  className="w-full mt-4 text-gray-600 hover:text-gray-800 font-medium py-3"
                 >
                   Back to Templates Collection
                 </button>
@@ -145,7 +147,7 @@ export default function PreviewModal({ template, onClose }) {
           <div className="absolute top-6 right-6 z-50">
             <button 
               onClick={() => setIsFullScreen(false)}
-              className="text-white bg-black/50 hover:bg-black/70 rounded-full p-3"
+              className="text-white bg-black/70 hover:bg-black/90 rounded-full p-3"
             >
               ✕
             </button>

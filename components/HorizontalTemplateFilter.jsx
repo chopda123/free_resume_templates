@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -108,13 +109,13 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
       onClick={onClick}
       className={`px-3 py-1 text-xs md:px-4 md:py-2 md:text-base rounded-full font-medium flex items-center gap-1 md:gap-2 transition-all whitespace-nowrap ${
         activeCount > 0
-          ? "bg-premium-teal text-premium-navy shadow-md"
-          : "bg-white text-premium-charcoal hover:bg-premium-gold/20 border border-premium-cream"
+          ? "bg-teal-500 text-white shadow-md"
+          : "bg-white text-gray-700 hover:bg-amber-50 border border-gray-200"
       }`}
     >
       {label}
       {activeCount > 0 && (
-        <span className="bg-premium-navy text-white rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-[10px] md:text-xs">
+        <span className="bg-white text-teal-600 rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-[10px] md:text-xs">
           {activeCount}
         </span>
       )}
@@ -141,7 +142,7 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
     <div
       ref={filterRef}
       className="
-        relative mb-6 py-2 px-2 bg-white rounded-2xl shadow-sm border border-premium-cream
+        relative mb-6 py-2 px-2 bg-white rounded-2xl shadow-sm border border-gray-200
         md:py-4 md:px-4
       "
     >
@@ -180,7 +181,7 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
         {/* All Resumes */}
         <button
           onClick={resetFilters}
-          className="bg-premium-teal text-premium-navy px-3 py-1 text-xs md:px-4 md:py-2 md:text-base rounded-full font-medium hover:bg-premium-teal/90 transition-colors flex items-center ml-auto whitespace-nowrap"
+          className="bg-teal-500 text-white px-3 py-1 text-xs md:px-4 md:py-2 md:text-base rounded-full font-medium hover:bg-teal-600 transition-colors flex items-center ml-auto whitespace-nowrap"
         >
           All
         </button>
@@ -189,7 +190,7 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
         {hasActiveFilters() && (
           <button
             onClick={resetFilters}
-            className="text-[11px] md:text-sm text-premium-charcoal hover:text-premium-navy flex items-center transition-colors whitespace-nowrap"
+            className="text-[11px] md:text-sm text-gray-600 hover:text-gray-800 flex items-center transition-colors whitespace-nowrap"
           >
             Clear
           </button>
@@ -198,16 +199,16 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
 
       {/* Dropdown Panels */}
       {openDropdown === "career" && (
-        <div className="absolute left-2 top-full mt-2 w-40 md:w-48 bg-white rounded-xl shadow-2xl z-20">
+        <div className="absolute left-2 top-full mt-2 w-40 md:w-48 bg-white rounded-xl shadow-2xl z-20 border border-gray-200">
           <div className="py-2">
             {careerStages.map((stage) => (
               <button
                 key={stage.value}
                 onClick={() => toggleFilter("careerStage", stage.value)}
-                className={`w-full text-left px-3 py-1.5 md:px-4 md:py-2 hover:bg-premium-gold/10 flex items-center ${
+                className={`w-full text-left px-3 py-1.5 md:px-4 md:py-2 hover:bg-amber-50 flex items-center ${
                   selectedCareerStages.includes(stage.value)
-                    ? "bg-premium-gold/20 font-medium"
-                    : ""
+                    ? "bg-amber-50 font-medium text-amber-700"
+                    : "text-gray-700"
                 }`}
               >
                 {stage.label}
@@ -218,16 +219,16 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
       )}
 
       {openDropdown === "style" && (
-        <div className="absolute left-2 top-full mt-2 w-40 md:w-48 bg-white rounded-xl shadow-2xl z-20">
+        <div className="absolute left-2 top-full mt-2 w-40 md:w-48 bg-white rounded-xl shadow-2xl z-20 border border-gray-200">
           <div className="py-2">
             {styles.map((style) => (
               <button
                 key={style.value}
                 onClick={() => toggleFilter("style", style.value)}
-                className={`w-full text-left px-3 py-1.5 md:px-4 md:py-2 hover:bg-premium-gold/10 flex items-center ${
+                className={`w-full text-left px-3 py-1.5 md:px-4 md:py-2 hover:bg-amber-50 flex items-center ${
                   selectedStyles.includes(style.value)
-                    ? "bg-premium-gold/20 font-medium"
-                    : ""
+                    ? "bg-amber-50 font-medium text-amber-700"
+                    : "text-gray-700"
                 }`}
               >
                 {style.label}
@@ -238,16 +239,16 @@ export default function HorizontalTemplateFilter({ onFilterChange, onReset }) {
       )}
 
       {openDropdown === "role" && (
-        <div className="absolute left-2 top-full mt-2 w-60 md:w-72 bg-white rounded-xl shadow-2xl z-20 max-h-64 md:max-h-96 overflow-y-auto">
+        <div className="absolute left-2 top-full mt-2 w-60 md:w-72 bg-white rounded-xl shadow-2xl z-20 max-h-64 md:max-h-96 overflow-y-auto border border-gray-200">
           <div className="py-2">
             {roles.map((role) => (
               <button
                 key={role.value}
                 onClick={() => toggleFilter("role", role.value)}
-                className={`w-full text-left px-3 py-1.5 md:px-4 md:py-2 hover:bg-premium-gold/10 flex items-center ${
+                className={`w-full text-left px-3 py-1.5 md:px-4 md:py-2 hover:bg-amber-50 flex items-center ${
                   selectedRoles.includes(role.value)
-                    ? "bg-premium-gold/20 font-medium"
-                    : ""
+                    ? "bg-amber-50 font-medium text-amber-700"
+                    : "text-gray-700"
                 }`}
               >
                 {role.label}

@@ -47,7 +47,7 @@ const FeatureCard = ({ icon, title, description }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     viewport={{ once: true }}
-    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 text-center"
+    className="bg-gray-800/70 border border-gray-700/30 rounded-2xl p-6 text-center"
   >
     <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
       {icon}
@@ -137,7 +137,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4"
           >
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
@@ -221,7 +221,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Premium Header */}
-      <header className="bg-gray-900/80 text-gray-200 py-4 px-4 md:px-8 border-b border-amber-500/20 sticky top-0 z-40 backdrop-blur-md">
+      <header className="bg-gray-900/95 text-gray-200 py-4 px-4 md:px-8 border-b border-amber-500/20 sticky top-0 z-40">
         <div className="container mx-auto max-w-7xl">
           <div className="flex items-center justify-between">
             <Link 
@@ -232,7 +232,7 @@ export default function Home() {
                 <span className="text-gray-900 font-bold text-lg">R</span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">ResumeCraft</h1>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">FreeResume</h1>
               </div>
             </Link>
             
@@ -280,79 +280,77 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-<section className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-950 text-white py-8 md:py-20 px-3 sm:px-4 overflow-hidden">
-  <div className="absolute inset-0 bg-[url('/hero-resume.png')] bg-cover bg-center mix-blend-soft-light opacity-35"></div>
-  <div className="container mx-auto max-w-7xl relative z-10">
-    
-    {/* Grid: Always 2 cols (even on mobile) */}
-    <div className="grid grid-cols-2 gap-4 sm:gap-8 md:gap-12 items-center">
-      
-      {/* Left Section (Text) */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="col-span-1 flex flex-col justify-center items-center sm:items-start text-center sm:text-left"
-      >
-        {/* Heading */}
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4 md:mb-6 leading-snug sm:leading-tight">
-          Craft Your Perfect <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">Resume</span> in Minutes
-        </h1>
-        
-        {/* Paragraph */}
-        <p className="text-[11px] sm:text-base md:text-lg text-gray-300 mb-3 sm:mb-6 md:mb-8 leading-relaxed max-w-full sm:max-w-xl">
-          Professional, ATS-friendly templates designed to get you hired. 
-          Customize instantly with our Canva-powered editor - no design skills needed.
-        </p>
-        
-        {/* Buttons → smaller + side by side */}
-        <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 w-full sm:w-auto justify-center sm:justify-start">
-          <Link 
-            href="/templates"
-            className="flex-1 sm:flex-none bg-amber-500 text-gray-900 px-3 py-1.5 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-[11px] sm:text-base md:text-lg font-bold hover:bg-amber-400 transition-colors text-center shadow-md sm:shadow-lg shadow-amber-500/20"
-          >
-            Browse Templates
-          </Link>
-          <button 
-            onClick={(e) => handleNavigation(e, 'how-it-works')}
-            className="flex-1 sm:flex-none border-2 border-amber-500/30 text-amber-400 px-3 py-1.5 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-[11px] sm:text-base md:text-lg font-bold hover:bg-amber-500/10 transition-colors"
-          >
-            How It Works
-          </button>
-        </div>
-      </motion.div>
+        <section className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-950 text-white py-8 md:py-20 px-3 sm:px-4 overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/hero-resume.png')] bg-cover bg-center mix-blend-soft-light opacity-35"></div>
+          <div className="container mx-auto max-w-7xl relative z-10">
+            
+            {/* Grid: Always 2 cols (even on mobile) */}
+            <div className="grid grid-cols-2 gap-4 sm:gap-8 md:gap-12 items-center">
+              
+              {/* Left Section (Text) */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="col-span-1 flex flex-col justify-center items-center sm:items-start text-center sm:text-left"
+              >
+                {/* Heading */}
+                <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 sm:mb-4 md:mb-6 leading-snug sm:leading-tight">
+                  Craft Your Perfect <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">Resume</span> in Minutes
+                </h1>
+                
+                {/* Paragraph */}
+                <p className="text-[11px] sm:text-base md:text-lg text-gray-300 mb-3 sm:mb-6 md:mb-8 leading-relaxed max-w-full sm:max-w-xl">
+                  Professional, ATS-friendly templates designed to get you hired. 
+                  Customize instantly with our Canva-powered editor - no design skills needed.
+                </p>
+                
+                {/* Buttons → smaller + side by side */}
+                <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 w-full sm:w-auto justify-center sm:justify-start">
+                  <Link 
+                    href="/templates"
+                    className="flex-1 sm:flex-none bg-amber-500 text-gray-900 px-3 py-1.5 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-[11px] sm:text-base md:text-lg font-bold hover:bg-amber-400 transition-colors text-center shadow-md sm:shadow-lg shadow-amber-500/20"
+                  >
+                    Browse Templates
+                  </Link>
+                  <button 
+                    onClick={(e) => handleNavigation(e, 'how-it-works')}
+                    className="flex-1 sm:flex-none border-2 border-amber-500/30 text-amber-400 px-3 py-1.5 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full text-[11px] sm:text-base md:text-lg font-bold hover:bg-amber-500/10 transition-colors"
+                  >
+                    How It Works
+                  </button>
+                </div>
+              </motion.div>
 
-      {/* Right Section (Image) */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative col-span-1 flex justify-center items-center"
-      >
-        <div className="bg-gradient-to-br from-amber-500/10 to-amber-600/10 rounded-xl sm:rounded-3xl p-2 sm:p-4 md:p-6 backdrop-blur-sm border border-amber-500/20">
-          {/* Responsive container for image size */}
-          <div className="bg-gray-800 rounded-lg sm:rounded-2xl shadow-xl sm:shadow-2xl overflow-hidden transform rotate-1 md:rotate-2 
-                          h-[220px] w-[160px] sm:h-[280px] sm:w-[220px] md:h-[390px] md:w-[360px] mx-auto">
-            <Image
-              src="/hero-resume.png"
-              alt="Free Resume Preview - Excited User"
-              fill
-              className="object-cover"
-              priority
-            />
+              {/* Right Section (Image) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative col-span-1 flex justify-center items-center"
+              >
+                <div className="bg-gradient-to-br from-amber-500/10 to-amber-600/10 rounded-xl sm:rounded-3xl p-2 sm:p-4 md:p-6 border border-amber-500/20">
+                  {/* Responsive container for image size */}
+                  <div className="bg-gray-800 rounded-lg sm:rounded-2xl shadow-xl sm:shadow-2xl overflow-hidden transform rotate-1 md:rotate-2 
+                                  h-[220px] w-[160px] sm:h-[280px] sm:w-[220px] md:h-[390px] md:w-[360px] mx-auto">
+                    <Image
+                      src="/hero-resume.png"
+                      alt="Free Resume Preview - Excited User"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
+
+                  {/* Badge */}
+                  <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-amber-500 text-gray-900 px-2 sm:px-3 py-0.5 sm:py-1 md:px-4 md:py-1.5 rounded-full font-bold text-[10px] sm:text-xs shadow-md">
+                    Most Popular
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
-
-          {/* Badge */}
-          <div className="absolute -top-2 -right-2 md:-top-3 md:-right-3 bg-amber-500 text-gray-900 px-2 sm:px-3 py-0.5 sm:py-1 md:px-4 md:py-1.5 rounded-full font-bold text-[10px] sm:text-xs shadow-md">
-            Most Popular
-          </div>
-        </div>
-      </motion.div>
-
-    </div>
-  </div>
-</section>
-
+        </section>
 
         {/* Trusted By Section */}
         <section className="py-8 md:py-12 bg-gray-800/30">
@@ -596,7 +594,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
-                    className="flex-shrink-0 w-72 md:w-80 bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 md:p-6 border border-white/10"
+                    className="flex-shrink-0 w-72 md:w-80 bg-gray-800/70 rounded-2xl p-5 md:p-6 border border-gray-700/30"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center mr-3 md:mr-4">
@@ -684,7 +682,7 @@ export default function Home() {
                 <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center">
                   <span className="text-gray-900 font-bold text-sm md:text-base">R</span>
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-white">ResumeCraft</h3>
+                <h3 className="text-lg md:text-xl font-bold text-white">FreeResume</h3>
               </div>
               <p className="text-gray-400 text-sm md:text-base">
                 Professional resume templates designed to help you land your dream job.
@@ -719,7 +717,7 @@ export default function Home() {
                   <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/></svg>
                 </a>
                 <a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors">
-                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                  <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 极 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222极 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </a>
               </div>
             </div>

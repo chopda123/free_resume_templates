@@ -1,20 +1,22 @@
+
 "use client";
-import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
-import { FaRegStar } from 'react-icons/fa';
 
-export default function StarRating({ rating }) {
-  const roundedRating = Math.round(rating * 2) / 2;
-  const stars = [];
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
-  for (let i = 1; i <= 5; i++) {
-    if (i <= roundedRating) {
-      stars.push(<FaStar key={i} className="text-premium-gold" />);
-    } else if (i - 0.5 === roundedRating) {
-      stars.push(<FaStarHalfAlt key={i} className="text-premium-gold" />);
-    } else {
-      stars.push(<FaRegStar key={i} className="text-premium-gold" />);
-    }
-  }
+export default function StarRating({ rating = 5 }) {
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-  return <div className="flex">{stars}</div>;
+  return (
+    <div className="flex">
+      {[...Array(fullStars)].map((_, i) => (
+        <FaStar key={`full-${i}`} className="w-4 h-4 text-gray-400" />
+      ))}
+      {hasHalfStar && <FaStarHalfAlt className="w-4 h-4 text-gray-400" />}
+      {[...Array(emptyStars)].map((_, i) => (
+        <FaRegStar key={`empty-${i}`} className="w-4 h-4 text-gray-400" />
+      ))}
+    </div>
+  );
 }
