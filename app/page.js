@@ -12,10 +12,12 @@ import { FaArrowLeft, FaArrowRight, FaTimes, FaStar, FaCheck, FaBars } from 'rea
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import Script from "next/script";
 
 // Add viewport meta tag to Head component
 const HeadContent = () => (
   <Head>
+    
     <title>FreeResume | Professional ATS-Friendly Resume Templates</title>
     <meta name="description" content="Create your perfect resume in minutes with our professional, ATS-friendly templates. Customize instantly with our Canva-powered editor." />
     <meta name="keywords" content="resume, cv, templates, ATS-friendly, job application, career" />
