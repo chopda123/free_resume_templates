@@ -83,6 +83,18 @@ export default function TemplatesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 overflow-hidden">
       <Head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6KX3J4SWZ7"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6KX3J4SWZ7');
+          `}
+        </Script>
          
         <title>Resume Templates | FreeResume</title>
         <meta name="description" content="Browse our collection of professional, ATS-friendly resume templates designed to help you land your dream job." />

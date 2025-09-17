@@ -17,6 +17,18 @@ import Script from "next/script";
 // Add viewport meta tag to Head component
 const HeadContent = () => (
   <Head>
+    <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6KX3J4SWZ7"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-6KX3J4SWZ7');
+          `}
+        </Script>
     
     <title>FreeResume | Professional ATS-Friendly Resume Templates</title>
     <meta name="description" content="Create your perfect resume in minutes with our professional, ATS-friendly templates. Customize instantly with our Canva-powered editor." />
