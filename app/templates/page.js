@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaTimes, FaBars } from 'react-icons/fa';
 import Head from 'next/head';
+import Script from 'next/script';
+// import {blog} from '../blog/page';
 
 export default function TemplatesPage() {
   const [templates, setTemplates] = useState([]);
@@ -83,6 +85,8 @@ export default function TemplatesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 overflow-hidden">
       <Head>
+
+
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-6KX3J4SWZ7"
           strategy="afterInteractive"
@@ -95,6 +99,8 @@ export default function TemplatesPage() {
             gtag('config', 'G-6KX3J4SWZ7');
           `}
         </Script>
+
+
          
         <title>Resume Templates | FreeResume</title>
         <meta name="description" content="Browse our collection of professional, ATS-friendly resume templates designed to help you land your dream job." />
@@ -128,6 +134,7 @@ export default function TemplatesPage() {
               >
                 Home
               </Link>
+               
 
               <a 
                 href="#how-it-works" 
@@ -150,6 +157,7 @@ export default function TemplatesPage() {
               >
                 Browse Templates
               </Link>
+            
             </div>
           </motion.div>
         )}
@@ -179,6 +187,12 @@ export default function TemplatesPage() {
               >
                 Home
               </Link>
+                <Link 
+                href="/blog"
+                className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm lg:text-base"
+              >
+                Blog
+              </Link>
               <a 
                 href="#how-it-works" 
                 className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm lg:text-base"
@@ -197,6 +211,7 @@ export default function TemplatesPage() {
               >
                 Templates
               </Link>
+              
             </nav>
             
             {/* Mobile Menu Button */}

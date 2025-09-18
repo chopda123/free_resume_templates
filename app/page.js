@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from 'react';
@@ -8,7 +7,7 @@ import { templatesQuery } from '../lib/queries';
 import TemplateCard from '../components/TemplateCard';
 import PreviewModal from '../components/PreviewModal';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaTimes, FaStar, FaCheck, FaBars } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaTimes, FaStar, FaCheck, FaBars, FaEnvelope, FaFileAlt, FaShieldAlt } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -71,6 +70,124 @@ const FeatureCard = ({ icon, title, description }) => (
   </motion.div>
 );
 
+// Contact Modal Component
+const ContactModal = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      
+      // Reset status after 3 seconds
+      setTimeout(() => {
+        setSubmitStatus(null);
+        onClose();
+      }, 3000);
+    }, 1500);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+      <div className="bg-gray-800 rounded-2xl p-6 max-w-md w-full mx-4 border border-amber-500/20">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-2xl font-bold text-amber-400">Contact Us</h3>
+          <button 
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors"
+            aria-label="Close contact form"
+          >
+            <FaTimes size={24} />
+          </button>
+        </div>
+        
+        {submitStatus === 'success' ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <FaCheck className="text-green-400 text-2xl" />
+            </div>
+            <h4 className="text-xl font-bold text-white mb-2">Thank You!</h4>
+            <p className="text-gray-300">Your message has been sent successfully. We'll get back to you soon.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="Your name"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="email" className="block text-gray-300 mb-2">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="your.email@example.com"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="message" className="block text-gray-300 mb-2">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows="4"
+                className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                placeholder="How can we help you?"
+              ></textarea>
+            </div>
+            
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-amber-500 text-gray-900 py-3 rounded-lg font-bold hover:bg-amber-400 transition-colors disabled:opacity-50"
+            >
+              {isSubmitting ? 'Sending...' : 'Send Message'}
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default function Home() {
   const scrollRef = useRef(null);
   const testimonialRef = useRef(null);
@@ -81,6 +198,7 @@ export default function Home() {
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // Memoized data fetching
   const fetchTemplates = useCallback(async () => {
@@ -144,6 +262,9 @@ export default function Home() {
     <div className="min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
       <HeadContent />
       
+      {/* Contact Modal */}
+      <ContactModal isOpen={showContactModal} onClose={() => setShowContactModal(false)} />
+      
       {/* Coming Soon Modal */}
       <AnimatePresence>
         {showComingSoon && (
@@ -201,6 +322,14 @@ export default function Home() {
               >
                 Templates
               </Link>
+              
+              <Link 
+                href="/blog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-gray-200 hover:text-amber-400 text-xl transition-colors"
+              >
+                Blog
+              </Link>
 
               <a 
                 href="#how-it-works" 
@@ -222,6 +351,15 @@ export default function Home() {
               >
                 Testimonials
               </a>
+              <button 
+                onClick={() => {
+                  setShowContactModal(true);
+                  setMobileMenuOpen(false);
+                }}
+                className="text-gray-200 hover:text-amber-400 text-xl transition-colors"
+              >
+                Contact Us
+              </button>
               <Link 
                 href="/templates"
                 onClick={() => setMobileMenuOpen(false)}
@@ -258,6 +396,12 @@ export default function Home() {
               >
                 Templates
               </Link>
+              <Link 
+                href="/blog"
+                className="text-gray-300 hover:text-amber-400 transition-colors duration-300"
+              >
+                Blog
+              </Link>
               <a 
                 href="#how-it-works" 
                 onClick={(e) => handleNavigation(e, 'how-it-works')}
@@ -272,6 +416,12 @@ export default function Home() {
               >
                 Testimonials
               </a>
+              <button 
+                onClick={() => setShowContactModal(true)}
+                className="text-gray-300 hover:text-amber-400 transition-colors duration-300"
+              >
+                Contact Us
+              </button>
               <Link 
                 href="/templates"
                 className="bg-amber-500 text-gray-900 px-5 py-2.5 rounded-full font-bold hover:bg-amber-400 transition-colors"
@@ -706,6 +856,7 @@ export default function Home() {
             <div>
               <h4 className="font-bold text-white mb-3 md:mb-4 text-base md:text-lg">Resources</h4>
               <ul className="space-y-2">
+                <li><Link href="/blog" className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Blog</Link></li>
                 <li><a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Resume Tips</a></li>
                 <li><a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Cover Letters</a></li>
                 <li><a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Interview Prep</a></li>
@@ -713,11 +864,11 @@ export default function Home() {
             </div>
 
             <div>
-              <h4 className="font-bold text-white mb-3 md:mb-4 text-base md:text-lg">Company</h4>
+              <h4 className="font-bold text-white mb-3 md:mb-4 text-base md:text-lg">Legal</h4>
               <ul className="space-y-2">
-                <li><a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">About Us</a></li>
-                <li><a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Contact</a></li>
-                <li><a href="#" onClick={handleResourceClick} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Privacy Policy</a></li>
+                <li><Link href="/privacy" className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Terms of Use</Link></li>
+                <li><button onClick={() => setShowContactModal(true)} className="text-gray-400 hover:text-amber-400 transition-colors text-sm md:text-base">Contact Us</button></li>
               </ul>
             </div>
 
