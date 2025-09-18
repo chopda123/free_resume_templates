@@ -1,5 +1,6 @@
 
 
+// app/blog/page.js
 import { client } from '@/lib/sanity';
 import {
   blogPostsQuery,
@@ -16,16 +17,29 @@ export const metadata = {
 };
 
 export default async function BlogPage({ searchParams }) {
-  const category = searchParams?.category || '';
+  // ✅ await searchParams (Next.js 15+)
+  const { category = '' } = await searchParams;
 
-  let posts;
-  if (category) {
-    posts = await client.fetch(blogPostsByCategoryQuery, { category });
-  } else {
-    posts = await client.fetch(blogPostsQuery);
+  let posts = [];
+  let categories = [];
+  
+  try {
+    if (category) {
+      posts = await client.fetch(blogPostsByCategoryQuery, { category });
+    } else {
+      posts = await client.fetch(blogPostsQuery);
+    }
+    
+    categories = await client.fetch(categoriesQuery);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    posts = [];
+    categories = [];
   }
 
-  const categories = await client.fetch(categoriesQuery);
+  // Handle case where posts might be null or undefined
+  const safePosts = Array.isArray(posts) ? posts : [];
+  const safeCategories = Array.isArray(categories) ? categories : [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -64,7 +78,7 @@ export default async function BlogPage({ searchParams }) {
         <div className="max-w-4xl mx-auto mb-12">
           <div className="flex justify-center flex-wrap gap-2 px-4">
             <CategoryFilter
-              categories={categories}
+              categories={safeCategories}
               currentCategory={category}
             />
           </div>
@@ -72,9 +86,9 @@ export default async function BlogPage({ searchParams }) {
 
         {/* Blog Posts Grid */}
         <div className="max-w-6xl mx-auto">
-          {posts.length > 0 ? (
+          {safePosts.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post) => (
+              {safePosts.map((post) => (
                 <BlogCard key={post._id} post={post} />
               ))}
             </div>
@@ -94,7 +108,7 @@ export default async function BlogPage({ searchParams }) {
         </div>
 
         {/* Newsletter CTA */}
-        {posts.length > 0 && (
+        {safePosts.length > 0 && (
           <div className="max-w-2xl mx-auto mt-16 bg-white rounded-2xl p-8 shadow-lg text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Stay Updated</h3>
             <p className="text-gray-600 mb-6">Get the latest career tips and resume advice delivered to your inbox.</p>
