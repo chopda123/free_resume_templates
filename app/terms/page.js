@@ -53,12 +53,12 @@ export default function TermsOfUse() {
             
             <h2 className="text-2xl font-bold mt-8 mb-4">3. Disclaimer</h2>
             <p className="text-gray-300 mb-6">
-              The materials on FreeResume are provided on an 'as is' basis. We make no warranties, 
-              expressed or implied, and hereby disclaim and negate all other warranties including, 
-              without limitation, implied warranties or conditions of merchantability, fitness for 
-              a particular purpose, or non-infringement of intellectual property or other violation of rights.
-            </p>
-            
+                The materials on FreeResume are provided on an &apos;as is&apos; basis. We make no warranties, 
+                expressed or implied, and hereby disclaim and negate all other warranties including, 
+                without limitation, implied warranties or conditions of merchantability, fitness for 
+                a particular purpose, or non-infringement of intellectual property or other violation of rights.
+                </p>
+                            
             <h2 className="text-2xl font-bold mt-8 mb-4">4. Limitations</h2>
             <p className="text-gray-300 mb-6">
               In no event shall FreeResume or its suppliers be liable for any damages 

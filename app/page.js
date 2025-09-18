@@ -16,18 +16,7 @@ import Script from "next/script";
 // Add viewport meta tag to Head component
 const HeadContent = () => (
   <Head>
-    <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-6KX3J4SWZ7"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-6KX3J4SWZ7');
-          `}
-        </Script>
+   
     
     <title>FreeResume | Professional ATS-Friendly Resume Templates</title>
     <meta name="description" content="Create your perfect resume in minutes with our professional, ATS-friendly templates. Customize instantly with our Canva-powered editor." />
@@ -128,7 +117,7 @@ const ContactModal = ({ isOpen, onClose }) => {
               <FaCheck className="text-green-400 text-2xl" />
             </div>
             <h4 className="text-xl font-bold text-white mb-2">Thank You!</h4>
-            <p className="text-gray-300">Your message has been sent successfully. We'll get back to you soon.</p>
+            <p className="text-gray-300">Your message has been sent successfully. We&apos;ll get back to you soon.</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
