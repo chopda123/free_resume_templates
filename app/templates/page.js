@@ -119,6 +119,13 @@ export default function TemplatesPage() {
               >
                 Home
               </Link>
+                <Link 
+                href="/blog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-gray-200 hover:text-amber-400 text-lg transition-colors"
+              >
+                Blog
+              </Link>
                
 
               <a 
