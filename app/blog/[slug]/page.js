@@ -108,8 +108,6 @@
 //   );
 // }
 
-
-// app/blog/[slug]/page.js
 import { client } from "@/lib/sanity";
 import { blogPostQuery } from "@/lib/queries";
 import { urlFor } from "@/lib/imageUrl";
@@ -118,12 +116,11 @@ import PortableText from "@/components/blog/PortableText";
 import Link from "next/link";
 
 export async function generateMetadata({ params }) {
-  // ✅ await params (Next.js 15+)
   const { slug } = await params;
   const post = await client.fetch(blogPostQuery, { slug });
 
   return {
-    title: `${post.title} | Resume Craft Blog`,
+    title: `${post.title} | FreeResume Blog`,
     description: post.excerpt,
     openGraph: {
       title: post.title,
@@ -138,12 +135,20 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  // ✅ await params (Next.js 15+)
   const { slug } = await params;
   const post = await client.fetch(blogPostQuery, { slug });
 
   if (!post) {
-    return <div>Post not found</div>;
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Post not found</h1>
+          <Link href="/blog" className="text-blue-600 hover:underline">
+            Return to Blog
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -168,50 +173,77 @@ export default async function BlogPostPage({ params }) {
         </div>
       </nav>
 
-      <article className="container mx-auto px-4 py-8 max-w-3xl">
+      <article className="max-w-4xl mx-auto px-4 py-8">
         <header className="mb-8">
-          <h1 className="text-4xl font-bold mb-4 text-gray-900">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            {post.title}
+          </h1>
 
-          <div className="flex items-center text-gray-600 text-sm mb-4">
-            <time>
+          <div className="flex flex-wrap items-center text-gray-600 text-sm mb-4 gap-2">
+            <time className="bg-gray-100 px-3 py-1 rounded-full">
               {new Date(post.publishedAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
               })}
             </time>
-            <span className="mx-2">•</span>
-            <div className="flex flex-wrap gap-2">
-              {post.categories?.map((category, index) => (
-                <span
-                  key={category._id || category.title || index}
-                  className="px-2 py-1 bg-blue-100 text-blue-800 border border-blue-200 text-xs rounded-full"
-                >
-                  {category.title || category}
-                </span>
-              ))}
-            </div>
+            
+            {post.categories?.length > 0 && (
+              <>
+                <span className="text-gray-400">•</span>
+                <div className="flex flex-wrap gap-2">
+                  {post.categories.map((category, index) => (
+                    <span
+                      key={category._id || category.title || index}
+                      className="bg-blue-100 text-blue-800 px-3 py-1 text-xs rounded-full border border-blue-200"
+                    >
+                      {category.title || category}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {post.mainImage && (
-            <div className="relative h-64 md:h-96 w-full mb-6">
+            <div className="relative h-64 md:h-96 w-full mb-6 rounded-xl overflow-hidden">
               <Image
                 src={urlFor(post.mainImage).width(800).height(400).url()}
                 alt={post.mainImage.alt || post.title}
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover"
+                priority
               />
             </div>
           )}
 
           {post.excerpt && (
-            <p className="text-lg text-gray-700 italic mb-6">{post.excerpt}</p>
+            <p className="text-lg text-gray-700 mb-6 leading-relaxed bg-gray-50 p-4 rounded-lg border-l-4 border-blue-500">
+              {post.excerpt}
+            </p>
           )}
         </header>
 
         <div className="prose prose-lg max-w-none">
           <PortableText value={post.body} />
         </div>
+
+        <footer className="mt-12 pt-8 border-t border-gray-200">
+          <div className="flex flex-wrap gap-4">
+            <Link 
+              href="/blog" 
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              ← Back to Blog
+            </Link>
+            <Link 
+              href="/templates" 
+              className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Browse Templates
+            </Link>
+          </div>
+        </footer>
       </article>
     </div>
   );
