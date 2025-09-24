@@ -1,13 +1,28 @@
 
+"use client"; // This line fixes the error
 
 import Link from 'next/link';
 import { urlFor } from '@/lib/imageUrl';
 import Image from 'next/image';
 
 export default function BlogCard({ post }) {
+  
+  // GA Event: Track clicks on a specific blog post
+  const handleBlogClick = () => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'select_content', {
+        'content_type': 'blog_post',
+        'item_id': post?.slug?.current,
+        'item_name': post?.title
+      });
+    }
+  };
+
   return (
-    <article className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl border border-gray-700">
-      <Link href={`/blog/${post.slug.current}`}>
+    <article 
+      onClick={handleBlogClick} // GA event added here
+      className="bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl border border-gray-700 cursor-pointer">
+      <Link href={`/blog/${post.slug.current}`} className="w-full h-full block">
         <div className="relative h-48 w-full">
           {post.mainImage ? (
             <Image

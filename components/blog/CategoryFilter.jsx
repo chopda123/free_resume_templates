@@ -52,3 +52,5 @@ export default function CategoryFilter({ categories, currentCategory }) {
     </div>
   );
 }
+
+

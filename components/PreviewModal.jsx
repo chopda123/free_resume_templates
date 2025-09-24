@@ -24,6 +24,17 @@ export default function PreviewModal({ template, onClose }) {
         "Compatible with all industries and experience levels"
       ];
 
+  // GA Event Handler for Canva click from the modal
+  const handleCanvaClickFromModal = () => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'edit_in_canva_click', {
+        'template_name': template?.title,
+        'template_id': template?._id,
+        'location': 'Preview Modal'
+      });
+    }
+  };
+
   return (
     <>
       {/* Main Preview Modal */}
@@ -120,6 +131,7 @@ export default function PreviewModal({ template, onClose }) {
                   href={template.canvaLink || "#"} 
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={handleCanvaClickFromModal} // GA event added here
                   className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white text-center py-4 rounded-full text-lg font-bold shadow-lg hover:shadow-xl block transition-all"
                 >
                   Edit This Template in Canva

@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-6KX3J4SWZ7');
+            gtag('config', 'G-6KX3J4SWZ7', {debug_mode: true});
           `}
         </Script>
       </head>
@@ -64,3 +64,7 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+
+
+

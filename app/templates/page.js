@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
@@ -81,12 +82,23 @@ export default function TemplatesPage() {
       roles: []
     });
   }, [handleFilterChange]);
+  
+  // GA Event: Track clicks on a specific resume template for preview
+  const handleTemplatePreview = (template) => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'select_content', {
+        'content_type': 'resume_template',
+        'item_id': template?._id,
+        'item_name': template?.title
+      });
+    }
+    // After tracking, open the preview modal
+    setPreviewTemplate(template);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 overflow-hidden">
       <Head>
-
-         
         <title>Resume Templates | FreeResume</title>
         <meta name="description" content="Browse our collection of professional, ATS-friendly resume templates designed to help you land your dream job." />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
@@ -119,15 +131,14 @@ export default function TemplatesPage() {
               >
                 Home
               </Link>
-                <Link 
+              <Link 
                 href="/blog"
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-gray-200 hover:text-amber-400 text-lg transition-colors"
               >
                 Blog
               </Link>
-               
-
+              
               <a 
                 href="#how-it-works" 
                 onClick={() => setMobileMenuOpen(false)}
@@ -149,7 +160,6 @@ export default function TemplatesPage() {
               >
                 Browse Templates
               </Link>
-            
             </div>
           </motion.div>
         )}
@@ -179,7 +189,7 @@ export default function TemplatesPage() {
               >
                 Home
               </Link>
-                <Link 
+              <Link 
                 href="/blog"
                 className="text-gray-300 hover:text-amber-400 transition-colors duration-300 text-sm lg:text-base"
               >
@@ -203,7 +213,6 @@ export default function TemplatesPage() {
               >
                 Templates
               </Link>
-              
             </nav>
             
             {/* Mobile Menu Button */}
@@ -284,7 +293,7 @@ export default function TemplatesPage() {
                 <TemplateCard
                   key={template._id}
                   template={template}
-                  onPreview={() => setPreviewTemplate(template)}
+                  onPreview={() => handleTemplatePreview(template)} // GA event added here
                 />
               ))}
             </motion.div>

@@ -1,10 +1,12 @@
 
+
 "use client";
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
-import StarRating from './StarRating';
+
+// StarRating import is no longer needed
 
 export default function TemplateCard({ template, onPreview }) {
   const [isPressed, setIsPressed] = useState(false);
@@ -14,18 +16,38 @@ export default function TemplateCard({ template, onPreview }) {
 
   // Delay preview slightly on touch so the press animation is visible
   const handlePreview = useCallback(() => {
+    // GA Event: Track template preview click
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'view_template_preview', {
+        'template_name': template?.title,
+        'template_id': template?._id,
+        'location': 'Template Card'
+      });
+    }
+
     setIsPressed(true);
     const t = setTimeout(() => {
       onPreview?.();
       setIsPressed(false);
     }, 120);
     return () => clearTimeout(t);
-  }, [onPreview]);
+  }, [onPreview, template]);
+
+  // GA Event Handler for Canva click
+  const handleCanvaClick = () => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'edit_in_canva_click', {
+        'template_name': template?.title,
+        'template_id': template?._id,
+        'location': 'Template Card'
+      });
+    }
+  };
 
   return (
     <motion.div
       className="w-full"
-      whileHover={{ y: -8, scale: 1.02 }}          // desktop hover
+      whileHover={{ y: -8, scale: 1.02 }}        // desktop hover
       animate={{ scale: isPressed ? 0.98 : 1 }}    // mobile tap feedback
       transition={{ duration: 0.2 }}
       onTouchStart={() => setIsPressed(true)}
@@ -45,7 +67,7 @@ export default function TemplateCard({ template, onPreview }) {
           {imageUrl ? (
             <motion.div
               className="w-full h-full"
-              whileHover={{ scale: 1.05 }}         // desktop hover
+              whileHover={{ scale: 1.05 }}        // desktop hover
               whileTap={{ scale: 0.97 }}           // mobile tap
               transition={{ duration: 0.35 }}
             >
@@ -80,10 +102,17 @@ export default function TemplateCard({ template, onPreview }) {
             >
               {template?.title || 'Premium Template'}
             </h3>
-            {/* Stars → smaller on mobile */}
-            <div className="scale-90 sm:scale-100 flex-shrink-0">
-              <StarRating rating={template?.rating} />
-            </div>
+            
+            {/* ✨ NEW: Star Rating Badge */}
+            {template?.rating && (
+              <div className="flex-shrink-0 flex items-center gap-1 bg-amber-100 text-amber-900 px-2.5 py-1 rounded-full">
+                <span className="text-xs sm:text-sm font-bold leading-none">{template.rating}</span>
+                {/* Star Icon */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              </div>
+            )}
           </div>
 
           {/* Buttons */}
@@ -103,13 +132,14 @@ export default function TemplateCard({ template, onPreview }) {
               href={template?.canvaLink}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleCanvaClick} // GA event added here
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
               className="flex-1 text-[11px] sm:text-sm 
-                         bg-amber-500 text-gray-900 font-medium 
-                         rounded-full py-1.5 sm:py-2 text-center 
-                         shadow-sm hover:bg-amber-400 
-                         active:scale-95 transition"
+                           bg-amber-500 text-gray-900 font-medium 
+                           rounded-full py-1.5 sm:py-2 text-center 
+                           shadow-sm hover:bg-amber-400 
+                           active:scale-95 transition"
             >
               Edit in Canva
             </motion.a>
