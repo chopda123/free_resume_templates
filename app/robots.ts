@@ -1,4 +1,3 @@
-// app/robots.ts
 import { MetadataRoute } from 'next'
 
 export default function robots(): MetadataRoute.Robots {
@@ -11,5 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: 'https://freeresume.shop/sitemap.xml',
+    host: 'https://freeresume.shop',
   }
 }

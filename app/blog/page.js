@@ -1,14 +1,14 @@
 
 
 // app/blog/page.js
-import { client } from '@/lib/sanity';
+import { client } from '../../lib/sanity';
 import {
   blogPostsQuery,
   categoriesQuery,
   blogPostsByCategoryQuery
-} from '@/lib/queries';
-import BlogCard from '@/components/blog/BlogCard';
-import CategoryFilter from '@/components/blog/CategoryFilter';
+} from '../../lib/queries';
+import BlogCard from '../../components/blog/BlogCard';
+import CategoryFilter from '../../components/blog/CategoryFilter';
 import Link from 'next/link';
 
 export const metadata = {

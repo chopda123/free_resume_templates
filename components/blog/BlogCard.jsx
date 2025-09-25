@@ -2,7 +2,7 @@
 "use client"; // This line fixes the error
 
 import Link from 'next/link';
-import { urlFor } from '@/lib/imageUrl';
+import { urlFor } from '../../lib/imageUrl';
 import Image from 'next/image';
 
 export default function BlogCard({ post }) {

@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import { urlFor } from "@/lib/imageUrl";
+import { urlFor } from "../../lib/imageUrl";
 
 const components = {
   types: {

@@ -1,9 +1,9 @@
 
-import { client } from "@/lib/sanity";
-import { blogPostQuery } from "@/lib/queries";
-import { urlFor } from "@/lib/imageUrl";
+import { client } from "../../../lib/sanity";
+import { blogPostQuery } from "../../../lib/queries";
+import { urlFor } from "../../../lib/imageUrl";
 import Image from "next/image";
-import PortableText from "@/components/blog/PortableText";
+import PortableText from "../../../components/blog/PortableText";
 import Link from "next/link";
 
 export async function generateMetadata({ params }) {
