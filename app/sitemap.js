@@ -1,45 +1,48 @@
+// app/sitemap.js
 import { groq } from "next-sanity";
-import { client } from "@/lib/queries"; // adjust path if your Sanity client is elsewhere
+import { client } from "@/lib/queries"; // adjust path if needed
+import { NextResponse } from "next/server";
 
-export default async function sitemap() {
+export async function GET() {
   const baseUrl = "https://freeresume.shop";
 
-  // 1. Fetch blogs from Sanity
+  // Fetch blogs from Sanity
   const blogQuery = groq`*[_type == "blog"]{ "slug": slug.current }`;
   const blogs = await client.fetch(blogQuery);
 
-  // 2. Fetch templates from Sanity
+  // Fetch templates from Sanity
   const templateQuery = groq`*[_type == "template"]{ "slug": slug.current }`;
   const templates = await client.fetch(templateQuery);
 
-  // 3. Define static pages (based on your structure)
-  const staticPages = [
-    "",
-    "/privacy",
-    "/terms",
-    "/templates",
-  ];
+  // Static pages
+  const staticPages = ["", "/privacy", "/terms", "/templates"];
 
-  // 4. Build routes
+  // Combine all routes
   const routes = [
-    // Static
-    ...staticPages.map((page) => ({
-      url: `${baseUrl}${page}`,
-      lastModified: new Date().toISOString(),
-    })),
-
-    // Blogs
-    ...blogs.map((blog) => ({
-      url: `${baseUrl}/blog/${blog.slug}`,
-      lastModified: new Date().toISOString(),
-    })),
-
-    // Templates
-    ...templates.map((template) => ({
-      url: `${baseUrl}/templates/${template.slug}`,
-      lastModified: new Date().toISOString(),
-    })),
+    ...staticPages.map((page) => `${baseUrl}${page}`),
+    ...blogs.map((b) => `${baseUrl}/blog/${b.slug}`),
+    ...templates.map((t) => `${baseUrl}/templates/${t.slug}`),
   ];
 
-  return routes;
+  // Build XML
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  ${routes
+    .map((url) => {
+      return `
+    <url>
+      <loc>${url}</loc>
+      <lastmod>${new Date().toISOString()}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.7</priority>
+    </url>`;
+    })
+    .join("")}
+</urlset>`;
+
+  return new NextResponse(sitemap, {
+    headers: {
+      "Content-Type": "application/xml",
+    },
+  });
 }
