@@ -20,7 +20,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "ResumeCraft | Premium Resume Templates",
+  title: "FreeResume | Premium Resume Templates",
   description:
     "Professionally designed resume templates to elevate your career prospects. Edit directly in Canva.",
 };
