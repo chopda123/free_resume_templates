@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "freeresume.shop"
+        }
+      ],
+      "destination": "https://www.freeresume.shop/$1",
+      "permanent": true
+    }
+  ]
+}
