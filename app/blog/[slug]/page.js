@@ -1,14 +1,24 @@
 
+
+
 import { client } from "../../../lib/sanity";
 import { blogPostQuery } from "../../../lib/queries";
 import { urlFor } from "../../../lib/imageUrl";
 import Image from "next/image";
 import PortableText from "../../../components/blog/PortableText";
 import Link from "next/link";
+import BlogViewTracker from "../../../components/BlogViewTracker";
 
+/* ---------------- SEO METADATA ---------------- */
 export async function generateMetadata({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
   const post = await client.fetch(blogPostQuery, { slug });
+
+  if (!post) {
+    return {
+      title: "Blog not found | FreeResume",
+    };
+  }
 
   return {
     title: `${post.title} | FreeResume Blog`,
@@ -25,15 +35,19 @@ export async function generateMetadata({ params }) {
   };
 }
 
+/* ---------------- PAGE ---------------- */
 export default async function BlogPostPage({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
   const post = await client.fetch(blogPostQuery, { slug });
 
+  /* ---------- NOT FOUND ---------- */
   if (!post) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Post not found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Post not found
+          </h1>
           <Link href="/blog" className="text-blue-600 hover:underline">
             Return to Blog
           </Link>
@@ -44,6 +58,9 @@ export default async function BlogPostPage({ params }) {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* ✅ GA BLOG VIEW TRACKING (ONLY FOR VALID POST) */}
+      <BlogViewTracker slug={slug} />
+
       {/* Navbar */}
       <nav className="bg-white shadow-sm py-4 px-6 border-b border-gray-200">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -51,10 +68,16 @@ export default async function BlogPostPage({ params }) {
             FreeResume
           </Link>
           <div className="flex space-x-6">
-            <Link href="/" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
               Home
             </Link>
-            <Link href="/templates" className="text-gray-700 hover:text-blue-600 transition-colors">
+            <Link
+              href="/templates"
+              className="text-gray-700 hover:text-blue-600 transition-colors"
+            >
               Templates
             </Link>
             <Link href="/blog" className="text-blue-600 font-medium">
@@ -64,6 +87,7 @@ export default async function BlogPostPage({ params }) {
         </div>
       </nav>
 
+      {/* Blog Content */}
       <article className="max-w-4xl mx-auto px-4 py-8">
         <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
@@ -78,7 +102,7 @@ export default async function BlogPostPage({ params }) {
                 day: "numeric",
               })}
             </time>
-            
+
             {post.categories?.length > 0 && (
               <>
                 <span className="text-gray-400">•</span>
@@ -121,14 +145,14 @@ export default async function BlogPostPage({ params }) {
 
         <footer className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-wrap gap-4">
-            <Link 
-              href="/blog" 
+            <Link
+              href="/blog"
               className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               ← Back to Blog
             </Link>
-            <Link 
-              href="/templates" 
+            <Link
+              href="/templates"
               className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Browse Templates
@@ -139,5 +163,3 @@ export default async function BlogPostPage({ params }) {
     </div>
   );
 }
-
-
